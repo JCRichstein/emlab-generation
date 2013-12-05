@@ -15,6 +15,7 @@
  ******************************************************************************/
 package emlab.gen.util;
 
+import org.apache.commons.math.MathException;
 import org.apache.commons.math.stat.regression.SimpleRegression;
 
 /**
@@ -27,28 +28,41 @@ import org.apache.commons.math.stat.regression.SimpleRegression;
  */
 public class GeometricTrendRegression extends SimpleRegression {
 
-	public void addData(double x, double y) {
-		super.addData(x, Math.log(y));
-	}
+    @Override
+    public void addData(double x, double y) {
+        super.addData(x, Math.log(y));
+    }
 
-	public void removeData(double x, double y) {
-		super.removeData(x, Math.log(y));
-	}
+    @Override
+    public void removeData(double x, double y) {
+        super.removeData(x, Math.log(y));
+    }
 
-	public void addData(double[][] data) {
-		for (double[] d : data) {
-			addData(d[0], d[1]);
-		}
-	}
+    @Override
+    public void addData(double[][] data) {
+        for (double[] d : data) {
+            addData(d[0], d[1]);
+        }
+    }
 
-	public void removeData(double[][] data) {
-		for (int i = 0; i < data.length && super.getN() > 0; i++) {
-			removeData(data[i][0], Math.log(data[i][1]));
-		}
-	}
+    @Override
+    public void removeData(double[][] data) {
+        for (int i = 0; i < data.length && super.getN() > 0; i++) {
+            removeData(data[i][0], Math.log(data[i][1]));
+        }
+    }
 
-	public double predict(double x) {
-		return Math.exp(super.predict(x));
-	}
+    @Override
+    public double predict(double x) {
+        return Math.exp(super.predict(x));
+    }
+
+    public double predictUpperBound(double x, double confidenceLevel) throws MathException {
+        return Math.exp(getIntercept() + x * (getSlope() + getSlopeConfidenceInterval(confidenceLevel)));
+    }
+
+    public double predictLowerBound(double x, double confidenceLevel) throws MathException {
+        return Math.exp(getIntercept() + x * (getSlope() - getSlopeConfidenceInterval(confidenceLevel)));
+    }
 
 }
