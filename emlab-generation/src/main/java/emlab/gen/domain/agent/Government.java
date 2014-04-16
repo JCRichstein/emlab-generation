@@ -37,7 +37,21 @@ public class Government extends DecarbonizationAgent implements Agent {
     @RelatedTo(type = "CO2_PRICECEILING_TREND", elementClass = TimeSeriesImpl.class, direction = Direction.OUTGOING)
     private TimeSeriesImpl co2PriceCeilingTrend;
 
+    private boolean activelyAdjustingTheCO2Cap;
+
     private double co2Penalty;
+
+    private double stabilityReserve;
+
+    private double stabilityReserveAddingThreshold;
+
+    private double stabilityReserveReleasingThreshold;
+
+    private double stabilityReserveAddingPercentage;
+
+    private double stabilityReserveAddingMinimum;
+
+    private double stabilityReserveReleaseQuantity;
 
     public double getCO2Tax(long time) {
         return co2TaxTrend.getValue(time);
@@ -91,6 +105,62 @@ public class Government extends DecarbonizationAgent implements Agent {
 
     public void setCo2PriceCeilingTrend(TimeSeriesImpl co2PriceCeilingTrend) {
         this.co2PriceCeilingTrend = co2PriceCeilingTrend;
+    }
+
+    public boolean isActivelyAdjustingTheCO2Cap() {
+        return activelyAdjustingTheCO2Cap;
+    }
+
+    public void setActivelyAdjustingTheCO2Cap(boolean activelyAdjustingTheCO2Cap) {
+        this.activelyAdjustingTheCO2Cap = activelyAdjustingTheCO2Cap;
+    }
+
+    public double getStabilityReserve() {
+        return stabilityReserve;
+    }
+
+    public void setStabilityReserve(double stabilityReserve) {
+        this.stabilityReserve = stabilityReserve;
+    }
+
+    public double getStabilityReserveAddingThreshold() {
+        return stabilityReserveAddingThreshold;
+    }
+
+    public void setStabilityReserveAddingThreshold(double stabilityReserveAddingThreshold) {
+        this.stabilityReserveAddingThreshold = stabilityReserveAddingThreshold;
+    }
+
+    public double getStabilityReserveReleasingThreshold() {
+        return stabilityReserveReleasingThreshold;
+    }
+
+    public void setStabilityReserveReleasingThreshold(double stabilityReserveReleasingThreshold) {
+        this.stabilityReserveReleasingThreshold = stabilityReserveReleasingThreshold;
+    }
+
+    public double getStabilityReserveAddingPercentage() {
+        return stabilityReserveAddingPercentage;
+    }
+
+    public void setStabilityReserveAddingPercentage(double stabilityReserveAddingPercentage) {
+        this.stabilityReserveAddingPercentage = stabilityReserveAddingPercentage;
+    }
+
+    public double getStabilityReserveAddingMinimum() {
+        return stabilityReserveAddingMinimum;
+    }
+
+    public void setStabilityReserveAddingMinimum(double stabilityReserveAddingMinimum) {
+        this.stabilityReserveAddingMinimum = stabilityReserveAddingMinimum;
+    }
+
+    public double getStabilityReserveReleaseQuantity() {
+        return stabilityReserveReleaseQuantity;
+    }
+
+    public void setStabilityReserveReleaseQuantity(double stabilityReserveReleaseQuantity) {
+        this.stabilityReserveReleaseQuantity = stabilityReserveReleaseQuantity;
     }
 
 }
